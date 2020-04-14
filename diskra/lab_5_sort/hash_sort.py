@@ -2,7 +2,7 @@ from random import randint
 
 
 arr_ = [randint(0, 1000) for i in range(25)]
-SIZE = 25
+SIZE = 100
 
 
 class Node(object):
@@ -17,7 +17,10 @@ class LinkedList(object):
 
     def insert(self, data):
         newNode = Node(data)
-        if self.head is None or data < self.head.data:
+        if self.head is None:
+            newNode.nextNode = None
+            self.head = newNode
+        elif data < self.head.data:
             newNode.nextNode = self.head
             self.head = newNode
         else:
