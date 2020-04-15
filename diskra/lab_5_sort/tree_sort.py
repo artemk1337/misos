@@ -1,7 +1,7 @@
 from random import randint
 
 
-arr_ = [randint(0, 1000) for i in range(25)]
+arr_ = [randint(0, 100) for i in range(10)]
 
 
 class node:

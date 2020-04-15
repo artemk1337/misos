@@ -60,7 +60,7 @@ def addressCalculationSort(arr):
             index += 1
             current = current.nextNode
 
-
-print("Start array:\n", arr_)
-addressCalculationSort(arr_)
-print("Sorted array:\n", arr_)
+if __name__ == "__main__":
+    print("Start array:\n", arr_)
+    addressCalculationSort(arr_)
+    print("Sorted array:\n", arr_)
