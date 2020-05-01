@@ -1,0 +1,13 @@
+.push.sh
+*.[oa]
+.DS_Store
+*~
+*.sh
+*.output
+*.out
+.idea*
+[cC][mM]*
+*.dSYM
+lem-in
+test_*
+*.exe*
