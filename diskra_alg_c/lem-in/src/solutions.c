@@ -103,7 +103,6 @@ void			reset_struct(t_tmp *list)
 	while (tmp)
 	{
 		tmp->room->prev = NULL;
-		tmp->room->prev1 = NULL;
         if (tmp->room != g_lemin->start)
 		    tmp->room->min_w = INT_MAX / 2;
 		tmp = tmp->next;

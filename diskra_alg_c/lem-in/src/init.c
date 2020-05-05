@@ -42,14 +42,10 @@ t_room	*init_room(char *s)
 	room->name = ft_strdup(s);
 	room->next = NULL;
 	room->prev = NULL;
-	room->prev1 = NULL;
 	room->path = NULL;
 	room->idx = 0;
 	room->min_w = INT_MAX / 2;
 	room->superpos = 0;
-	room->ant = 0;
-	room->number_anc = 0;
-	room->was_sup = 0;
 	return (room);
 }
 

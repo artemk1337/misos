@@ -32,16 +32,10 @@ typedef struct			s_room
 
 	int					min_w;
 	int					superpos;
-	int					was_sup;
 	struct s_room		*prev;
-	struct s_room		*prev1;
 
 	struct s_room		**path;
 	int					idx;
-
-	// For ant
-	unsigned long		ant;
-	unsigned long		number_anc;
 }						t_room;
 
 typedef struct			s_tmp
