@@ -15,7 +15,9 @@
 
 # include <string.h>
 # include <libft.h>
+# include <time.h>
 # include <limits.h>
+# include <stdio.h>
 
 typedef struct			s_next
 {
@@ -54,7 +56,6 @@ typedef struct			s_solution
 
 typedef struct			s_lemin
 {
-	t_vec				*vector;
 	unsigned long		count;
 
 	int					rooms;

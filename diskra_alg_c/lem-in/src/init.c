@@ -18,8 +18,6 @@ t_lemin	*init_lemin(void)
 
 	if (!(lemin = malloc(sizeof(t_lemin))))
 		exit(1);
-	if (!(lemin->vector = ft_create_vec(10)))
-		exit(1);
 	lemin->count = 0;
     lemin->arr = NULL;
     lemin->arr = NULL;

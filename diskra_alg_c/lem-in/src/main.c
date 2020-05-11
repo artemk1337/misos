@@ -110,7 +110,6 @@ static t_tmp	*create_struct_prefix(char **line, t_tmp *tmp)
 		if ((get_next_line(STDIN, line)) < 1)
 			error_exit();
 		check_node(*line);
-		g_lemin->vector = ft_put_vec(g_lemin->vector, *line);
 		tmp = init_tmp(tmp, 0, *line);
 		(g_lemin->rooms)++;
 	}
@@ -120,7 +119,6 @@ static t_tmp	*create_struct_prefix(char **line, t_tmp *tmp)
 		if ((get_next_line(STDIN, line)) < 1)
 			error_exit();
 		check_node(*line);
-		g_lemin->vector = ft_put_vec(g_lemin->vector, *line);
 		tmp = init_tmp(tmp, -1, *line);
 		(g_lemin->rooms)++;
 	}
@@ -141,7 +139,6 @@ t_tmp	*create_struct(void)
 			ft_strdel(&line);
 			break ;
 		}
-		g_lemin->vector = ft_put_vec(g_lemin->vector, line);
 		if (line[0] != '#')
 			tmp = create_struct_(line, tmp);
 		else if (line[0] == '#' && line[1] == '#')
@@ -240,21 +237,42 @@ static void	alg_deikstri(void)
 
 void	algorithm(t_tmp *list)
 {
-	int i;
-	int alg;
+	clock_t	current_time;
+	int 	i;
+	int 	alg;
 
 	while (1)
 	{
+		//ft_putstr("START ALG\n");
+		current_time = clock();
 		i = 0;
-		alg = 0; // Choose algorithm
+		alg = 1; // Choose algorithm; 0, 1 or 2
+		// NEW PART
+		if (alg == 0)
+			ft_putstr("Bellman–Ford algorithm (modified) \n");
+		else if (alg == 1)
+			ft_putstr("Bellman–Ford algorithm \n");
+		else if (alg == 2)
+			ft_putstr("Dijkstra's algorithm \n");
 		if (alg == 0)
 		{
+			printf("%i - all edges\n\n", g_lemin->edge);
 			while (i++ < g_lemin->edge)
-			if (!alg_bell_ford(list, 0))
-				break ;
+				if (!alg_bell_ford(list, 0))
+					break ;
 		}
-		else
+		else if (alg == 1)
+		{
+			printf("%i - all edges\n\n", g_lemin->edge);
+			while (i++ < g_lemin->edge)
+			{
+				//printf("%d\n", i);
+				alg_bell_ford(list, 0);
+			}
+		}
+		else if (alg == 2)
 			alg_deikstri();
+		printf("Worktime - %f sec\n\n", (double)(clock() - current_time)  / CLOCKS_PER_SEC);
 		if (!(g_lemin->finish->prev))
 			break ;
 		if (!save_tmp())
@@ -278,7 +296,6 @@ void	print_sol(void)
 		ft_putstr("NO SOLUTION\n");
 		return ;	
 	}
-	ft_putstr("Ways:\n\n");
 	sol = g_lemin->solution;
 	while (sol)
 	{
@@ -322,9 +339,8 @@ int		main()
 	g_lemin->arr = create_array(&tmp);
 	check_duplicate_nodes(g_lemin->arr);
 	algorithm(tmp);
-	print_sol();
 	if (!(g_lemin->solution))
 		error_exit();
-	//show_input();
+	print_sol();
 	return (0);
 }
