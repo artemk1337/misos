@@ -71,13 +71,6 @@ t_room					*init_room(char *s);
 t_tmp					*init_tmp(t_tmp *tmp, int a, char *s);
 
 /*
-** _check.c
-*/
-void					check_struct(t_tmp *tmp);
-void					print_sol(void);
-void					test_way(void);
-
-/*
 ** solution.c
 */
 int						save_tmp(void);
@@ -104,22 +97,8 @@ unsigned long int		check_ant_num(char *str);
 void					error_exit(void);
 
 /*
-** output.c
-*/
-void					alg_4(void);
-
-/*
 ** global VARS
 */
 t_lemin					*g_lemin;
-
-/*
-** Solution copy and destroy
-*/
-t_solution				*copy_solution(t_solution *source_solutions);
-void					destroy_solutions(t_solution **solution);
-int						check_solutions(t_solution *prev_solution,
-										t_solution *current_solution);
-void					sort_solutions(t_solution **solution);
 
 #endif
