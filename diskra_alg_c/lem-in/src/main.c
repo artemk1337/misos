@@ -11,25 +11,18 @@
 /* ************************************************************************** */
 
 #include "lemin.h"
-//#define DEBUG
-#ifndef DEBUG
-# define STDIN 0
-#endif
-
-// TODO Comments and unknown commands must be ignored by program
-//  - 101
-// TODO Replace checking funcs if necessary
 
 
-// TODO delete DEBUG macros before deploy
-//  - 24
-//  - 155
+/*
+** 0 - Bellman–Ford algorithm (modified)
+** 1 - Bellman–Ford algorithm
+** 2 - Dijkstra's algorithm
+*/
 
-#ifdef DEBUG
-# include <fcntl.h>
-# define STDIN 3
-int g_fd;
-#endif
+int alg = 0;
+
+int STDIN = 0;
+
 
 void	put_way_dop(t_tmp *tmp, t_tmp *tmp_2, char *s2, int weight)
 {
@@ -234,19 +227,16 @@ static void	alg_deikstri(void)
 	}
 }
 
-
 void	algorithm(t_tmp *list)
 {
 	clock_t	current_time;
 	int 	i;
-	int 	alg;
 
 	while (1)
 	{
 		//ft_putstr("START ALG\n");
 		current_time = clock();
 		i = 0;
-		alg = 1; // Choose algorithm; 0, 1 or 2
 		// NEW PART
 		if (alg == 0)
 			ft_putstr("Bellman–Ford algorithm (modified) \n");
@@ -282,10 +272,6 @@ void	algorithm(t_tmp *list)
 	}
 }
 
-
-
-
-
 void	print_sol(void)
 {
 	t_solution	*sol;
@@ -317,21 +303,9 @@ void	print_sol(void)
 
 
 
-	
-
-
-
-
-
-
-
-
 
 int		main()
 {
-#ifdef DEBUG
-	g_fd = open("interesting_maps/gemerald4", O_RDONLY);
-#endif
 	t_tmp	*tmp;
 
 	g_lemin = init_lemin();

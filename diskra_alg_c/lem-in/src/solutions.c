@@ -34,7 +34,6 @@ static void		init_sol_dop(t_solution *tmp_s, int size, t_solution *sol)
 		room = room->prev;
 		i++;
 	}
-	tmp_s->hide = 0;
 	tmp_s->arr[size - i] = g_lemin->start;
 	tmp_s->arr[size - i]->idx = size - i;
 	g_lemin->solution = sol;
