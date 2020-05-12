@@ -143,14 +143,16 @@ t_tmp	*create_struct(void)
 
 
 
-static int	alg_bell_ford(t_tmp *start, int counter)
+static int	alg_bell_ford(t_tmp *start)
 {
 	t_tmp	*curr;
 	t_room	*prev_r;
 	t_next	*curr_n;
 	t_next	*prev_n;
+	int		counter;
 
 	curr = start;
+	counter = 0;
 	while (curr)
 	{
 		curr_n = curr->room->next;
@@ -160,12 +162,9 @@ static int	alg_bell_ford(t_tmp *start, int counter)
 			prev_n = prev_r->next;
 			while (prev_n && prev_n->room != curr->room)
 				prev_n = prev_n->next;
-			if (prev_n->toggle && prev_r->min_w + prev_n->weight < curr->room->min_w
+			if (prev_r->min_w + prev_n->weight < curr->room->min_w
 			&& prev_r != g_lemin->finish && !curr->room->superpos && !prev_r->superpos
-			&& prev_r->min_w != (INT_MAX / 2) && prev_r->path == NULL)
-			/*
-			**add prev_r->path == NULL && prev_r != g_lemin->finish && curr->room->path == NULL
-			*/
+			&& prev_r->min_w != (INT_MAX / 2))
 			{
 				counter++;
 				curr->room->min_w = prev_r->min_w + prev_n->weight;
@@ -194,8 +193,7 @@ static void	alg_deikstri(void)
 		curr_neigh = curr_stack->room->next;
 		while (curr_neigh)
 		{
-			if (curr_neigh->toggle &&
-				curr_stack->room->min_w + curr_neigh->weight < curr_neigh->room->min_w)
+			if (curr_stack->room->min_w + curr_neigh->weight < curr_neigh->room->min_w)
 			{
 				curr_neigh->room->min_w = curr_stack->room->min_w + curr_neigh->weight;
 				curr_neigh->room->prev = curr_stack->room;
@@ -236,7 +234,7 @@ void	algorithm(t_tmp *list)
 		{
 			printf("%i - all edges\n\n", g_lemin->edge);
 			while (i++ < g_lemin->edge)
-				if (!alg_bell_ford(list, 0))
+				if (!alg_bell_ford(list))
 					break ;
 		}
 		else if (alg == 1)
@@ -245,7 +243,7 @@ void	algorithm(t_tmp *list)
 			while (i++ < g_lemin->edge)
 			{
 				//printf("%d\n", i);
-				alg_bell_ford(list, 0);
+				alg_bell_ford(list);
 			}
 		}
 		else if (alg == 2)
