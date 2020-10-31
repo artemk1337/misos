@@ -2,16 +2,22 @@ import numpy as np
 
 y = [1.23,-1.66,-3.25,-3.11,6.66,7.8,-0.04]
 
-def sum_(y, x):
-    x_ = [x - i for i in range(-2, 5)]
-    k = [720, -120, 48, -36, 48, -120, 720]
-    return sum([y[i]/(x_[i] * k[i]) for i in range(len(k))])
+lagrange_array = np.zeros((7, 7), dtype=np.float16)
 
-def L(y, x):
-    return (x+2)*(x+1)*x*(x-1)*(x-2)*(x-3)*(x-4)*sum_(y, x)
 
-print('Lagrange | Method 1: f(-1.3)={:.4f}, f(1.75)={:.4f}'.format(L(y, -1.3), L(y, 1.75)))
+def lagrange(x, start):
+    
+    for i in range(0, 7):
+        tmp = [ii - i if ii - i != 0 else x - start - i for ii in range(7)]
+        lagrange_array[:, i] = tmp
+    
+    # print(lagrange_array)
+    
+    L = np.prod([x - i for i in range(-2, 5)]) * sum([yi/np.prod(lagrange_array[i]) for i, yi in enumerate(y)])
+    return L
 
+
+print('Lagrange | Method 1: f(-1.3)={:.4f}, f(1.75)={:.4f}'.format(lagrange(-1.3, -2), lagrange(1.75, -2)))
 
 
 
@@ -26,7 +32,7 @@ def newton(x):
                 break
             newton_array[line-1, col] = (newton_array[line, col-1] - newton_array[line-1, col-1]) / col
     
-    # print(newton_array)
+    # print(pd.DataFrame(newton_array))
     
     x_ = [x - i for i in range(-2, 5)]
     res = newton_array[0, 0]
